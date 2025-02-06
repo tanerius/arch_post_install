@@ -2,7 +2,7 @@
 
 One day ago from writing this document, I made Arch Linux my daily driver OS. Being a gamer at the same time, I opted to tweak Arch both as a workstation and my gaming rig. Since I encoutnered a number of things that I needed to tweak to achieve amazing naming and working performance, I thought I'd share this info in case it comes in handy to anyone.  
 
-## 1. My Current Specs
+## 1. My Current Specs and Preconditions
 
 ```text
                    -`                 
@@ -25,6 +25,17 @@ One day ago from writing this document, I made Arch Linux my daily driver OS. Be
  `++:.                           `-/+/
  .`                                 `/
 ```
+
+### Preconditions
+
+When installing arch using `archinstaller` command  from the shell i make sure to set the following precoditions(for theyre the best).
+
+- My Arch installation uses a separate partition for /home
+- I use the SDDM display manager for the login welcome screen thingie. It also works with Wayland.
+- I use KDE Plasma as a desktop environment with `Wayland`. Its amazing.
+- I use `pipewire` as the audio driver
+- I user `GRUB` as my bootloader
+- I chose to use Nvidia proprietary driver (not the open source kernel header stuff which are also from Nvidia and supposed to work amazingly)
 
 ## 2. Installing yay
 
