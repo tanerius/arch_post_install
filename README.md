@@ -26,7 +26,73 @@ One day ago from writing this document, I made Arch Linux my daily driver OS. Be
  .`                                 `/
 ```
 
-## 2. Befriending Wayland and NVIDIA
+## 2. Installing yay
+
+One of the most used AUR package managers is `yay`. Explaining AUR is beyond the scope of this text, and besides i know what it is :) So we run the following steps:
+
+- `sudo pacman -Syu` # to update package list
+- `sudo pacman -S --needed base-devel git` # to install git and prerequisites for yay
+- `cd ~` # or wherever you want to keep the yay repo
+- `git clone https://aur.archlinux.org/yay.git` # to clone yay
+- `cd yay` 
+- `makepkg -si` # to install it
+  
+After installation is done we can check `yay --version` to see that everything is installed
+
+## 3. Installing Media Codecs
+
+Pretty straightforward. You might wanna listen to stuff or watch stuff. If so:  
+  
+`yay -S gst-libav gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gstreamer-vaapi x265 x264 lame`
+
+## 4. Cleaning Package Cache
+
+This will clear the package cache to only keep 1 version after every action. This is good to keep disk usage minimal. Run:
+  
+```bash
+yay -S pacman-contrib
+sudo mkdir /etc/pacman.d/hooks
+sudo nano /etc/pacman.d/hooks/clean_package_cache.hook
+```
+
+In `/etc/pacman.d/hooks/clean_package_cache.hook` write:
+
+```text
+[Trigger]
+Operation = Upgrade
+Operation = Install
+Operation = Remove
+Type = Package
+Target = *
+[Action]
+Description = Cleaning pacman cache...
+When = PostTransaction
+Exec = /usr/bin/paccache -rk 2
+```
+
+## 5. Gaming Related Stuff and Optimizations
+
+The post install steps are related to gaming. Run the following commands:
+
+```bash
+## Install Vulkan Driver (AMD GPU Only)
+sudo pacman -S vulkan-radeon lib32-vulkan-radeon
+
+## Install Vulkan Driver (NVIDIA GPU Only)
+sudo pacman -S nvidia-utils lib32-nvidia-utils
+
+## Install gaming stuff
+sudo pacman -S chromium git steam gamemode mangohud wine-staging
+
+## Install overlay to measure fps and stuff
+yay -S --noconfirm goverlay
+
+## Disable file indexer in Dolphin
+balooctl6 suspend && balooctl6 disable && balooctl6 purge
+
+```
+
+## 6. Befriending Wayland and NVIDIA
 
 Because I was keen to use Wayland (instead of X11) and having read that Nvidia and Wayland are not good "friends", the first thing to tacke was to make sure they work well together.
 
@@ -78,47 +144,3 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 ```
   
 Finally, restart your PC.
-
-## 3. Installing yay
-
-One of the most used AUR package managers is `yay`. Explaining AUR is beyond the scope of this text, and besides i know what it is :) So we run the following steps:
-
-- `sudo pacman -Syu` # to update package list
-- `sudo pacman -S --needed base-devel git` # to install git and prerequisites for yay
-- `cd ~` # or wherever you want to keep the yay repo
-- `git clone https://aur.archlinux.org/yay.git` # to clone yay
-- `cd yay` 
-- `makepkg -si` # to install it
-  
-After installation is done we can check `yay --version` to see that everything is installed
-
-## 4. Installing Media Codecs
-
-Pretty straightforward. You might wanna listen to stuff or watch stuff. If so:  
-  
-`yay -S gst-libav gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gstreamer-vaapi x265 x264 lame`
-
-## 5. Cleaning Package Cache
-
-This will clear the package cache to only keep 1 version after every action. This is good to keep disk usage minimal. Run:
-  
-```bash
-yay -S pacman-contrib
-sudo mkdir /etc/pacman.d/hooks
-sudo nano /etc/pacman.d/hooks/clean_package_cache.hook
-```
-
-In `/etc/pacman.d/hooks/clean_package_cache.hook` write:
-
-```text
-[Trigger]
-Operation = Upgrade
-Operation = Install
-Operation = Remove
-Type = Package
-Target = *
-[Action]
-Description = Cleaning pacman cache...
-When = PostTransaction
-Exec = /usr/bin/paccache -rk 2
-```
