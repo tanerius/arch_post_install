@@ -155,3 +155,10 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
 ```
   
 Finally, restart your PC.
+
+## 7. CPU Microcode Update 
+
+```bash
+# Install microcode for AMD (for intel instead of amd put intel)
+sudo pacman -S amd-ucode
+```
