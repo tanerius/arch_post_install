@@ -1,6 +1,8 @@
-# Arch Linux Post Installation (my unofficial) Manual 
+# Arch Linux Post Installation (my unofficial) Manual
 
 One day ago from writing this document, I made Arch Linux my daily driver OS. Being a gamer at the same time, I opted to tweak Arch both as a workstation and my gaming rig. Since I encoutnered a number of things that I needed to tweak to achieve amazing naming and working performance, I thought I'd share this info in case it comes in handy to anyone.  
+  
+This is NOT an Arch instalation guide. Arch Linux’s flexibility is one of its greatest strengths, but that freedom also comes with the responsibility to build a setup that works best for you. There are a lot of those online and are easily searchable. It is basically a todo list for me of things to remember when tweaking my installation for gaming. Taking the time to complete essential post-installation steps is an investment in a smooth and personalized experience, especially for gaming. I wanted to share my steps here. So without further delay...
 
 ## 1. My Current Specs and Preconditions
 
@@ -101,6 +103,12 @@ yay -S --noconfirm goverlay
 ## Disable file indexer in Dolphin
 balooctl6 suspend && balooctl6 disable && balooctl6 purge
 
+## Fonts
+yay -S --noconfirm --quiet --needed ttf-ms-win11-auto
+sudo pacman -S noto-fonts-cjk noto-fonts-emoji noto-fonts-extra ttf-liberation ttf-dejavu ttf-roboto adobe-source-code-pro-fonts ttf-jetbrains-mon
+
+## Libreoffice stable maintenance branch
+sudo pacman -S libreoffice-still
 ```
 
 ## 6. Befriending Wayland and NVIDIA
@@ -156,7 +164,7 @@ sudo grub-mkconfig -o /boot/grub/grub.cfg
   
 Finally, restart your PC.
 
-## 7. CPU Microcode Update 
+## 7. CPU Microcode Update
 
 ```bash
 # Install microcode for AMD (for intel instead of amd put intel)
