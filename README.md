@@ -315,6 +315,45 @@ For more detailed info see.
 - [https://community.kde.org/Distributions/Packaging_Recommendations](https://community.kde.org/Distributions/Packaging_Recommendations)
 - [https://wiki.archlinux.org/title/KDE](https://wiki.archlinux.org/title/KDE)
 
+### Make your shell look amazing and do amazing shit
+
+Install `zsh`
+
+```bash
+yay -S zsh
+```
+  
+Install `oh-my-zsh` for more swag
+
+```bash
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
+  
+Install the best `oh-my-zsh` plugins:
+
+```bash
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+
+git clone https://github.com/MichaelAquilina/zsh-you-should-use.git $ZSH_CUSTOM/plugins/you-should-use
+
+git clone https://github.com/fdellwing/zsh-bat.git $ZSH_CUSTOM/plugins/zsh-bat
+```
+  
+Edit `~/.zshrc` and enable the plugins
+
+```bash
+nano ~/.zshrc
+
+# find and replace ZSH_THEME and plugins with the following:
+...
+ZSH_THEME="bira"
+...
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting you-should-use zsh-bat)
+...
+```
+
 ### Installing Media Codecs
 
 Pretty straightforward. You might wanna listen to stuff or watch stuff. If so:  
