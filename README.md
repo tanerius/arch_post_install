@@ -303,6 +303,9 @@ yay -S isoimagewriter
 
 # An archeiving tool
 yay -S ark
+
+# Install a browser - i like chrome but chromium also is OKish
+yay -S google-chrome
 ```
   
 This is all i have on my system as i don't need the rest of the KDE Bloat. But a really nice list of all the apps can be found on this link: [https://apps.kde.org/](https://apps.kde.org/)
@@ -365,7 +368,7 @@ balooctl6 suspend && balooctl6 disable && balooctl6 purge
 
 ## Fonts
 yay -S --noconfirm --quiet --needed ttf-ms-win11-auto
-sudo pacman -S noto-fonts-cjk noto-fonts-emoji noto-fonts-extra ttf-liberation ttf-dejavu ttf-roboto adobe-source-code-pro-fonts ttf-jetbrains-mon
+sudo pacman -S noto-fonts-cjk noto-fonts-emoji noto-fonts-extra ttf-liberation ttf-dejavu ttf-roboto adobe-source-code-pro-fonts ttf-jetbrains-mono
 
 ## Libreoffice stable maintenance branch
 sudo pacman -S libreoffice-still
