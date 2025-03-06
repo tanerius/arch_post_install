@@ -1,6 +1,6 @@
 # Arch Linux Installation and Post-Installation (my unofficial) Manual
 
-Last Update: 2025-03-03
+Last Update: 2025-03-06
 
 I made Arch Linux my daily driver OS. Being a gamer at the same time, I opted to tweak Arch both as a workstation and my gaming rig. Since I encoutnered a number of things that I needed to tweak to achieve amazing naming and working performance, I thought I'd share this info in case it comes in handy to anyone.  
   
@@ -9,6 +9,41 @@ This is NOT an Arch instalation guide. Arch Linux’s flexibility is one of its 
 **UPDATE** I also decided to add the installation steps for my own reference since i really enjoyed the installation process itself.  
   
 So without further delay...  
+
+## My Current Specs and Preconditions
+
+When installing arch using `archinstaller` command  from the shell i make sure to set the following precoditions (for theyre the best and reflect the above stuff in the INstallation section).
+
+- My Arch installation uses a separate partition for /home
+- I use the SDDM display manager for the login welcome screen thingie. It also works with Wayland.
+- I use KDE Plasma as a desktop environment with `Wayland`. Its amazing.
+- I use `pipewire` as the audio driver
+- I user `GRUB` as my bootloader
+- I chose to use zen kernel because its more optimized 
+
+I use Arch as my daily driver so I dont treat this OS as a secondary "whatever" dual-booted thing, but as my goto OS that needs to work with everything including gaming, work and entertainment. So the installation process is catered to that. These are my specs:
+
+```text
+                   -`                    tanerius@archos 
+                  .o+`                   --------------- 
+                 `ooo/                   OS: Arch Linux x86_64 
+                `+oooo:                  Host: MS-7E12 1.0 
+               `+oooooo:                 Kernel: 6.13.5-zen1-1-zen 
+               -+oooooo+:                Uptime: 22 mins 
+             `/:-:++oooo+:               Packages: 992 (pacman), 9 (flatpak) 
+            `/++++/+++++++:              Shell: zsh 5.9 
+           `/++++++++++++++:             Resolution: 3440x1440 
+          `/+++ooooooooooooo/`           DE: Plasma 6.3.2 
+         ./ooosssso++osssssso+`          WM: kwin 
+        .oossssso-````/ossssss+`         Theme: Adwaita [GTK3] 
+       -osssssso.      :ssssssso.        Icons: Adwaita [GTK3] 
+      :osssssss/        osssso+++.       Terminal: konsole 
+     /ossssssss/        +ssssooo/-       CPU: AMD Ryzen 7 7800X3D (16) @ 5.050GHz 
+   `/ossssso+/:-        -:/+osssso+-     GPU: AMD ATI 16:00.0 Raphael 
+  `+sso+:-`                 `.-/+oso:    GPU: NVIDIA GeForce RTX 4080 SUPER 
+ `++:.                           `-/+/   Memory: 3995MiB / 31182MiB 
+ .`                                 `/
+```
 
 ## Installation
 
@@ -77,7 +112,8 @@ swapon /dev/swap_partition
 ### Installation and Initial Config
 
 - See `/etc/pacman.d/mirrorlist` if you like to edit it. Later we should use `reflector`.
-- `# pacstrap -K /mnt base linux linux-firmware` to install the base system.
+- `pacstrap -K /mnt base linux linux-headers linux-firmware` to install the base system with vanila kernel or
+- `pacstrap -K /mnt base linux-zen linux-zen-headers linux-firmware` to install the base system with zen kernel.
 
 Instead of `kernel` which is the vanila kernel we can also install other versions. Today i would go with zen kernel for gaming. Here are the supported ones:
 ```text
@@ -152,13 +188,12 @@ hwclock --systohc
   - `pacman -S nvidia` (linux kernel)
   - `pacman -S nvidia-lts` (linux-lts kernel)
   - `pacman -S nvidia-dkms` (any kernel - preferred)
-- Install kernel headers (we need them for later modules) - check for which kernel etc
-  - `pacman -S linux-headers`
+  - `pacman -S nvidia-utils lib32-nvidia-utils` to unstall vulkan support.
 - Do `pacman -S neofetch htop` to get some fancy apps to list your system specs
 - Edit `/etc/pacman.conf` to your liking
   - Enable simultaneous downloads
   - Enable Colors
-  - Enable that pacman thingie that makes the progress look like pacman :)
+  - Enable that pacman thingie by adding `ILoveCandy` to `/etc/pacman.conf` that makes the progress look like pacman :)
   - Maybe enable cleaning the versions cache (google it)
   - If you plan on using 32-bit applications, you will want to enable the multilib repository. (Try not to give these oldies any spotlight though)
 - Install and configure `reflector` 
@@ -172,49 +207,13 @@ hwclock --systohc
   - `usermod -a -G sudo tanerius` to let tanerius issue sudo commands
   - `usermod -a -G video tanerius` seems to be important for video shizzle
   - Add to any other group u need
+  - Change the password of the user `passwd tanerius`
 
-### Install KDE and SDDM
+## Post Installation
 
-- https://wiki.archlinux.org/title/SDDM
-- https://community.kde.org/Distributions/Packaging_Recommendations
-- https://wiki.archlinux.org/title/KDE
+Now starts your installation tweaking and post install steps. From here of everything is more about personal preferences and such. From now of we should not be using `root` user anymore but rather our main non root. Best is to reboot actually. 
 
-## My Current Specs and Preconditions
-
-```text
-                   -`                 
-                  .o+`                 taner@homepc
-                 `ooo/                 OS: Arch Linux 
-                `+oooo:                Kernel: x86_64 Linux 6.13.1-arch1-1
-               `+oooooo:               Uptime: 3m
-               -+oooooo+:              Packages: 905
-             `/:-:++oooo+:             Shell: zsh 5.9
-            `/++++/+++++++:            Resolution: 3440x1440
-           `/++++++++++++++:           DE: KDE
-          `/+++ooooooooooooo/`         WM: KWin
-         ./ooosssso++osssssso+`        GTK Theme: Breeze-Dark [GTK2], Breeze [GTK3]
-        .oossssso-````/ossssss+`       Icon Theme: breeze-dark
-       -osssssso.      :ssssssso.      Disk: 222G / 2.8T (9%)
-      :osssssss/        osssso+++.     CPU: AMD Ryzen 7 7800X3D 8-Core @ 16x 5.05GHz
-     /ossssssss/        +ssssooo/-     GPU: NVIDIA GeForce RTX 4080 SUPER
-   `/ossssso+/:-        -:/+osssso+-   RAM: 4375MiB / 31187MiB
-  `+sso+:-`                 `.-/+oso: 
- `++:.                           `-/+/
- .`                                 `/
-```
-
-### Preconditions
-
-When installing arch using `archinstaller` command  from the shell i make sure to set the following precoditions (for theyre the best and reflect the above stuff in the INstallation section).
-
-- My Arch installation uses a separate partition for /home
-- I use the SDDM display manager for the login welcome screen thingie. It also works with Wayland.
-- I use KDE Plasma as a desktop environment with `Wayland`. Its amazing.
-- I use `pipewire` as the audio driver
-- I user `GRUB` as my bootloader
-- I chose to use Nvidia proprietary driver (not the open source kernel header stuff which are also from Nvidia and supposed to work amazingly)
-
-## 2. Installing yay
+### Installing yay
 
 One of the most used AUR package managers is `yay`. Explaining AUR is beyond the scope of this text, and besides i know what it is :) So we run the following steps:
 
@@ -227,13 +226,99 @@ One of the most used AUR package managers is `yay`. Explaining AUR is beyond the
   
 After installation is done we can check `yay --version` to see that everything is installed
 
-## 3. Installing Media Codecs
+### Install KDE and SDDM Display Manager
+
+Enable extras `/etc/environment`
+
+```bash
+# for nvidia GPUs
+GBM_BACKEND=nvidia-drm 
+# for nvidia GPUs
+__GLX_VENDOR_LIBRARY_NAME=nvidia
+
+# this is needed for a fresh manual linux
+LANG=en_US.UTF-8
+LC_ALL=en_US.UTF-8
+LANGUAGE=en_US.UTF-8
+```
+  
+Install the minimal version of KDE Plasma and `sddm` Display Manager
+
+```bash
+sudo pacman -S plasma-desktop sddm sddm-kcm qt5-declarative
+```
+  
+Enable the `sddm.service`
+
+```bash
+sudo systemctl enable sddm.service
+```
+  
+Install the apps you will need now to use in KDE:
+
+```bash
+# Terminals: a really simple terminal and really fancy terminal
+sudo pacman -S alacritty konsole
+
+# Our file manager: dolphin
+sudo pacman -S dolphin dolphin-plugins kompare kio-gdrive baloo
+
+# some plugins/additions to dolphin that are useful 
+sudo pacman -S kdegraphics-thumbnailers kimageformats qt6-imageformats resvg ffmpeg-thumbs ffmpegthumbs taglib icoutils
+
+# Install KWrite for taking notes 
+sudo pacman -S kwrite
+
+# KWallet and utilities to enable storing secrets and whatnots
+sudo pacman -S kwallet kwalletmanager kwallet-pam
+
+# Utility to graphically configure refresh rates of the monitor
+sudo pacman -S kscreen
+
+# Super useful document viewer
+sudo pacman -S okular
+
+# Screen capture (screenshot) utility 
+sudo pacman -S spectacle
+
+# An image viewer
+sudo pacman -S gwenview
+
+# A print app
+sudo pacman -S kolourpaint
+
+# From now lets use yay cuz its cooler and it will install stuff also from AUR where needed
+
+# Flatpak manager for flatpaks
+yay -S discover flatpak fwupd
+
+# A calculator cuz i mean you need one
+yay -S kalk
+
+# A fancy volume control widget
+yay -S plasma-pa kmix
+
+# An image writer to experimet with other images
+yay -S isoimagewriter
+
+# An archeiving tool
+yay -S ark
+```
+  
+This is all i have on my system as i don't need the rest of the KDE Bloat. But a really nice list of all the apps can be found on this link: [https://apps.kde.org/](https://apps.kde.org/)
+
+For more detailed info see.
+- [https://wiki.archlinux.org/title/SDDM](https://wiki.archlinux.org/title/SDDM)
+- [https://community.kde.org/Distributions/Packaging_Recommendations](https://community.kde.org/Distributions/Packaging_Recommendations)
+- [https://wiki.archlinux.org/title/KDE](https://wiki.archlinux.org/title/KDE)
+
+### Installing Media Codecs
 
 Pretty straightforward. You might wanna listen to stuff or watch stuff. If so:  
   
 `yay -S gst-libav gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly gstreamer-vaapi x265 x264 lame`
 
-## 4. Cleaning Package Cache
+### Cleaning Package Cache
 
 This will clear the package cache to only keep 1 version after every action. This is good to keep disk usage minimal. Run:
   
@@ -258,7 +343,7 @@ When = PostTransaction
 Exec = /usr/bin/paccache -rk 2
 ```
 
-## 5. Gaming Related Stuff and Optimizations
+### Gaming Related Stuff and Optimizations
 
 The post install steps are related to gaming. Run the following commands:
 
@@ -286,7 +371,7 @@ sudo pacman -S noto-fonts-cjk noto-fonts-emoji noto-fonts-extra ttf-liberation t
 sudo pacman -S libreoffice-still
 ```
 
-## 6. Befriending Wayland and NVIDIA
+## Befriending Wayland and NVIDIA
 
 Because I was keen to use Wayland (instead of X11) and having read that Nvidia and Wayland are not good "friends", the first thing to tacke was to make sure they work well together.
 
