@@ -254,6 +254,27 @@ Enable the `sddm.service`
 sudo systemctl enable sddm.service
 ```
   
+Configure SDDM bu creating the file `/etc/sddm.conf.d/tanerius.conf`. Instead of tanerius call it what u want. Add the following:
+
+```bash
+[General]
+# Enable Qt's automatic high-DPI scaling
+EnableHiDPI=true
+
+[Theme]
+# Current theme name
+Current=breeze
+
+# Cursor theme used in the greeter
+CursorTheme=breeze_cursors
+
+# Enable display of custom user avatars
+EnableAvatars=true
+
+# Theme directory path
+ThemeDir=/usr/share/sddm/themes
+```
+  
 Install the apps you will need now to use in KDE:
 
 ```bash
