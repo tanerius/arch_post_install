@@ -1,6 +1,6 @@
 # Arch Linux Installation and Post-Installation (my unofficial) Manual
 
-Last Update: 2025-03-06
+Last Update: 2025-03-08
 
 I made Arch Linux my daily driver OS. Being a gamer at the same time, I opted to tweak Arch both as a workstation and my gaming rig. Since I encoutnered a number of things that I needed to tweak to achieve amazing naming and working performance, I thought I'd share this info in case it comes in handy to anyone.  
   
@@ -290,7 +290,9 @@ After installation is done we can check `yay --version` to see that everything i
 
 ### Install KDE and SDDM Display Manager
 
-Enable extras `/etc/environment`
+This section is used to install and configure KDE and SDDM. To uninstall or replace KDE at some point just reverse what is done from here.  
+  
+Add the following variables to `/etc/environment`
 
 ```bash
 # for nvidia GPUs
