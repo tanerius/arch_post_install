@@ -1,6 +1,6 @@
 # Arch Linux Installation and Post-Installation (my unofficial) Manual
 
-Last Update: 2025-03-06
+Last Update: 2025-03-25
 
 I made Arch Linux my daily driver OS. Being a gamer at the same time, I opted to tweak Arch both as a workstation and my gaming rig. Since I encoutnered a number of things that I needed to tweak to achieve amazing naming and working performance, I thought I'd share this info in case it comes in handy to anyone.  
   
@@ -184,11 +184,12 @@ hwclock --systohc
   - `pacman -S pipewire` sound system (will ask for extras install everything probably best)
   - `pacman -S pipewire-docs` to review the documentation
   - `pacman -S wireplumber` session and policy manager for pipewire
-- Install nvidia drivers (PICK ONE) - If you have AMD GPU go here https://wiki.archlinux.org/title/Xorg#AMD
+- Install nvidia drivers (PICK ONE ONLY FOR NVIDIA) - If you have AMD GPU go here https://wiki.archlinux.org/title/Xorg#AMD
   - `pacman -S nvidia` (linux kernel)
   - `pacman -S nvidia-lts` (linux-lts kernel)
   - `pacman -S nvidia-dkms` (any kernel - preferred)
-  - `pacman -S nvidia-utils lib32-nvidia-utils` to unstall vulkan support.
+- Install vulkan support (NVIDIA ONLY)
+  - `pacman -S nvidia-utils lib32-nvidia-utils`.
 - Do `pacman -S neofetch htop` to get some fancy apps to list your system specs
 - Edit `/etc/pacman.conf` to your liking
   - Enable simultaneous downloads
@@ -494,4 +495,13 @@ sudo pacman -S noto-fonts-cjk noto-fonts-emoji noto-fonts-extra ttf-liberation t
 
 ## Libreoffice stable maintenance branch
 sudo pacman -S libreoffice-still
+```
+
+###
+
+Finally some additional eye candy
+
+```bash
+## tldr makes man pages much more readable
+sudo pacman -S tldr
 ```
