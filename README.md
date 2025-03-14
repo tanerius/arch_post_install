@@ -506,4 +506,7 @@ Finally some additional eye candy
 ```bash
 ## tldr makes man pages much more readable
 sudo pacman -S tldr
+
+## KDE Utility to help you sample pixels for their color. USeful since Unity color picker didnt work for me
+sudo pacman -S kcolorchooser
 ```
