@@ -291,7 +291,9 @@ After installation is done we can check `yay --version` to see that everything i
 
 ### Install KDE and SDDM Display Manager
 
-Enable extras `/etc/environment`
+This section is used to install and configure KDE and SDDM. To uninstall or replace KDE at some point just reverse what is done from here.  
+  
+Add the following variables to `/etc/environment`
 
 ```bash
 # for nvidia GPUs
