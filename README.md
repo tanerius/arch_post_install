@@ -19,7 +19,7 @@ When installing arch using `archinstaller` command  from the shell i make sure t
 - I use KDE Plasma as a desktop environment with `Wayland`. Its amazing.
 - I use `pipewire` as the audio driver
 - I user `GRUB` as my bootloader
-- I chose to use zen kernel because its more optimized 
+- I chose to use zen kernel because its more optimized
 
 I use Arch as my daily driver so I dont treat this OS as a secondary "whatever" dual-booted thing, but as my goto OS that needs to work with everything including gaming, work and entertainment. So the installation process is catered to that. These are my specs:
 
@@ -47,18 +47,21 @@ I use Arch as my daily driver so I dont treat this OS as a secondary "whatever" 
 
 ## Installation
 
-To verify verify the boot mode do the follwoing and make sure the result is 64 (the system is booted in UEFI mode and has a 64-bit x64 UEFI). 
+To verify verify the boot mode do the follwoing and make sure the result is 64 (the system is booted in UEFI mode and has a 64-bit x64 UEFI).
+
 ```bash
 cat /sys/firmware/efi/fw_platform_size
 ```
   
 To see all the network devices. Also just to make sure you are connected ping a website.
+
 ```bash
 ip link 
 ping -c 3 archlinux.org
 ```
   
 Sync the clock
+
 ```bash
 timedatectl
 ```
@@ -66,6 +69,7 @@ timedatectl
 ### Partitioning
   
 Partition the disks using `dfisk /dev/<deviceid>`. Here is some useful info for this:
+
 ```text
 Partition type aliases:
    linux          - 0FC63DAF-8483-4772-8E79-3D69D8477DE4
@@ -92,6 +96,7 @@ Partition type ids (common ones):
 ```
   
 Steps and layout for a UEFI with GPT partitioning:
+
 - `/boot` EFI partition at least 1GB (I would today go with 2) - type 1 (format with `# mkfs.fat -F 32 /dev/efi_system_partition`)
 - swap partition of 4GB - type 19 (format with `# mkswap /dev/swap_partition`)
 - `/root` - type 23 (format with `# mkfs.ext4 /dev/partition_id` )
@@ -100,6 +105,7 @@ Steps and layout for a UEFI with GPT partitioning:
 ### Mounting
 
 Mount the partitions with:
+
 ```bash
 mount /dev/root_partition /mnt
 
@@ -116,6 +122,7 @@ swapon /dev/swap_partition
 - `pacstrap -K /mnt base linux-zen linux-zen-headers linux-firmware` to install the base system with zen kernel.
 
 Instead of `kernel` which is the vanila kernel we can also install other versions. Today i would go with zen kernel for gaming. Here are the supported ones:
+
 ```text
 Stable — Vanilla Linux kernel and modules, with a few patches applied.
 https://www.kernel.org/ || linux
@@ -135,16 +142,19 @@ https://github.com/zen-kernel/zen-kernel || linux-zen
 ```
   
 Generate and check the initial fstab
+
 ```bash
 genfstab -U /mnt >> /mnt/etc/fstab
 ```
   
 Chroot into the new system
+
 ```bash
 arch-chroot /mnt
 ```
   
 Set timezone and time shizzle
+
 ```bash
 # ln -sf /usr/share/zoneinfo/Region/City /etc/localtime
 ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
@@ -154,7 +164,7 @@ hwclock --systohc
 ### Localization
 
 - Edit `/etc/locale.gen` and enable locales you like (in any case enable `en_US.UTF-8 UTF-8`)
-- run `locale-gen` 
+- run `locale-gen`
 - Edit/Create `/etc/locale.conf` and add `LANG=en_US.UTF-8`
 
 ### Finalization Checklist
@@ -184,7 +194,7 @@ hwclock --systohc
   - `pacman -S pipewire` sound system (will ask for extras install everything probably best)
   - `pacman -S pipewire-docs` to review the documentation
   - `pacman -S wireplumber` session and policy manager for pipewire
-- Install nvidia drivers (PICK ONE ONLY FOR NVIDIA) - If you have AMD GPU go here https://wiki.archlinux.org/title/Xorg#AMD
+- Install nvidia drivers (PICK ONE ONLY FOR NVIDIA) - If you have AMD GPU go [here](https://wiki.archlinux.org/title/Xorg#AMD)
   - `pacman -S nvidia` (linux kernel)
   - `pacman -S nvidia-lts` (linux-lts kernel)
   - `pacman -S nvidia-dkms` (any kernel - preferred)
@@ -197,7 +207,7 @@ hwclock --systohc
   - Enable that pacman thingie by adding `ILoveCandy` to `/etc/pacman.conf` that makes the progress look like pacman :)
   - Maybe enable cleaning the versions cache (google it)
   - If you plan on using 32-bit applications, you will want to enable the multilib repository. (Try not to give these oldies any spotlight though)
-- Install and configure `reflector` 
+- Install and configure `reflector`
 - Install `sudo` and set the text editor for visudo
   - `pacman -S sudo`
   - `export SUDO_EDITOR=nano` (put this someplace where you can source it every login)
@@ -247,7 +257,7 @@ sudo mkinitcpio -P
 
 DRM (Direct Rendering Manager) is a subsystem of the Linux kernel responsible for interfacing with GPUs. It provides a framework for graphics drivers to enable direct access to the graphics hardware, which is crucial for performance in rendering tasks, 3D graphics, video playback, and more.
   
-We enable DRm by passing the kernel mode setting as a parameter to the Linux kernel during boot. Since i am using GRUB, I edit `/etc/default/grub` and append `nvidia-drm.modeset=1 nvidia_drm.fbdev=1` to the value of the `GRUB_CMDLINE_LINUX_DEFAULT` parameter. 
+We enable DRm by passing the kernel mode setting as a parameter to the Linux kernel during boot. Since i am using GRUB, I edit `/etc/default/grub` and append `nvidia-drm.modeset=1 nvidia_drm.fbdev=1` to the value of the `GRUB_CMDLINE_LINUX_DEFAULT` parameter.
 
 Additionally, if you’re using the KDE Plasma desktop (like me), it’s important to add `nvidia.NVreg_EnableGpuFirmware=0` to the settings mentioned above. The line in my GRUB config looks like the following:  
   
@@ -274,7 +284,7 @@ Finally, restart your PC.
 
 ## Post Installation
 
-Now starts your installation tweaking and post install steps. From here of everything is more about personal preferences and such. From now of we should not be using `root` user anymore but rather our main non root. Best is to reboot actually. 
+Now starts your installation tweaking and post install steps. From here of everything is more about personal preferences and such. From now of we should not be using `root` user anymore but rather our main non root. Best is to reboot actually.
 
 ### Installing yay
 
@@ -284,7 +294,7 @@ One of the most used AUR package managers is `yay`. Explaining AUR is beyond the
 - `sudo pacman -S --needed base-devel git` # to install git and prerequisites for yay
 - `cd ~` # or wherever you want to keep the yay repo
 - `git clone https://aur.archlinux.org/yay.git` # to clone yay
-- `cd yay` 
+- `cd yay`
 - `makepkg -si` # to install it
   
 After installation is done we can check `yay --version` to see that everything is installed
@@ -397,6 +407,7 @@ yay -S google-chrome
 This is all i have on my system as i don't need the rest of the KDE Bloat. But a really nice list of all the apps can be found on this link: [https://apps.kde.org/](https://apps.kde.org/)
 
 For more detailed info see.
+
 - [https://wiki.archlinux.org/title/SDDM](https://wiki.archlinux.org/title/SDDM)
 - [https://community.kde.org/Distributions/Packaging_Recommendations](https://community.kde.org/Distributions/Packaging_Recommendations)
 - [https://wiki.archlinux.org/title/KDE](https://wiki.archlinux.org/title/KDE)
