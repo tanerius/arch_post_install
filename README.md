@@ -494,14 +494,14 @@ balooctl6 suspend && balooctl6 disable && balooctl6 purge
 ## Fonts
 yay -S --noconfirm --quiet --needed ttf-ms-win11-auto
 sudo pacman -S noto-fonts-cjk noto-fonts-emoji noto-fonts-extra ttf-liberation ttf-dejavu ttf-roboto adobe-source-code-pro-fonts ttf-jetbrains-mono
-
+sudo pacman -S ttf-freefont ttf-arphic-uming ttf-baekmuk
 ## Libreoffice stable maintenance branch
 sudo pacman -S libreoffice-still
 ```
 
-###
+### Eye candy
 
-Finally some additional eye candy
+Finally some additional eye candy and utilities that i need or find useful to have in everyday life
 
 ```bash
 ## tldr makes man pages much more readable
