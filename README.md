@@ -1,6 +1,6 @@
 # Arch Linux Installation and Post-Installation (my unofficial) Manual
 
-Last Update: 2025-03-25
+Last Update: 2025-03-15
 
 I made Arch Linux my daily driver OS. Being a gamer at the same time, I opted to tweak Arch both as a workstation and my gaming rig. Since I encoutnered a number of things that I needed to tweak to achieve amazing naming and working performance, I thought I'd share this info in case it comes in handy to anyone.  
   
