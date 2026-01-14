@@ -68,7 +68,7 @@ timedatectl
 
 ### Partitioning
   
-Partition the disks using `dfisk /dev/<deviceid>`. Here is some useful info for this:
+Partition the disks using `fdisk /dev/<deviceid>`. Here is some useful info for this:
 
 ```text
 Partition type aliases:
@@ -101,6 +101,12 @@ Steps and layout for a UEFI with GPT partitioning:
 - swap partition of 4GB - type 19 (format with `# mkswap /dev/swap_partition`)
 - `/root` - type 23 (format with `# mkfs.ext4 /dev/partition_id` )
 - `/home` - type 41 (format with `# mkfs.ext4 /dev/partition_id` )
+
+#### NON-UEFI (BIOS) GPT Partitioning
+
+For BIOS GPT partitioning create a mebibyte partition (+1M with `fdisk` or `gdisk`) on the disk with no file system and with partition type GUID `21686148-6449-6E6F-744E-656564454649`.  
+  
+fdisk: Create a partition and use the `t` command to change its partition type to BIOS boot.
   
 ### Mounting
 
