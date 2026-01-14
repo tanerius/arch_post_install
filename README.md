@@ -183,10 +183,14 @@ hwclock --systohc
   - Enable it as a service `systemctl enable NetworkManager.service`
   - Enable systemd-resolved `systemctl enable systemd-resolved`
   - Edit/Add whatever you need in `/etc/systemd/resolved.conf` (Normally it will work as is but Google it ... its important)
-- Install GRUB and EFI boot manager
+- Install GRUB and EFI boot manager (FOR EFI ONLY) 
   - `pacman -S grub efibootmgr`
+- For BIOS Non-EFI installation
+  - `pacman -S grub`
 - Install the GRUB EFI application grubx64.efi to `/boot/EFI/Arch`. (Arch can actually be any ID specified in `--bootloader-id`)
   - `grub-install --target=x86_64-efi --efi-directory= /boot --bootloader-id=Arch`
+- FOR NON-EFI installation
+  - `grub-install --target=i386-pc /dev/sdX ` where sdX is the device NOT the specific partition
 - After the installation, the main configuration file `/boot/grub/grub.cfg` needs to be generated
   - `grub-mkconfig -o /boot/grub/grub.cfg` - **IMPORTANT** run this every time after installing or removing a kernel!!
 - Add additional custom menu entries if needed (NOT NEEDED but here just to satisfy my dual boot another linux or something)
